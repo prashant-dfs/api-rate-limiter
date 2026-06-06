@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+redis[hiredis]
+pydantic
+pydantic-settings
+python-dotenv

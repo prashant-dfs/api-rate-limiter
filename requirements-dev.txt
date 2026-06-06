@@ -1,0 +1,8 @@
+-r requirements.txt
+pytest
+pytest-asyncio
+httpx
+pytest-cov
+ruff
+mypy
+fakeredis
