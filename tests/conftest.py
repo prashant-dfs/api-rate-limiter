@@ -1,23 +1,13 @@
-"""
-Shared test fixtures
----------------------
-conftest.py is automatically loaded by pytest before running any tests.
-Fixtures here are available to all test files without explicit imports.
-"""
-
 import pytest
 from httpx import ASGITransport, AsyncClient
 
 from app.main import app
-from app.utils.redis_client import close_redis_client, get_redis_client
+from app.utils.redis_client import get_redis_client
 
 
 @pytest.fixture
 async def client():
-    """
-    Async HTTP test client.
-    Sends requests directly to the FastAPI app in memory — no real server needed.
-    """
+    """Async HTTP test client — sends requests directly to FastAPI in memory."""
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://testserver") as ac:
         yield ac
@@ -25,21 +15,25 @@ async def client():
 
 @pytest.fixture
 async def redis():
-    """
-    Provides a Redis connection and cleans up test keys after each test,
-    so tests never interfere with each other.
-    """
+    """Provides a Redis connection and cleans up test keys after each test."""
     r = await get_redis_client()
     yield r
-    # Teardown: remove all keys created by tests
-    for prefix in ("fw:test-", "swl:test-", "tb:test-", "lb:test-"):
+    for prefix in (
+        "fw:test-",
+        "swl:test-",
+        "tb:test-",
+        "lb:test-",
+        "fw:testserver",
+        "swl:testserver",
+        "tb:testserver",
+        "lb:testserver",
+        "fw:127",
+        "swl:127",
+        "tb:127",
+        "lb:127",
+        "route-limited:",
+        "test:",
+    ):
         keys = await r.keys(f"{prefix}*")
         if keys:
             await r.delete(*keys)
-
-
-@pytest.fixture(autouse=True)
-async def cleanup_redis():
-    """Runs automatically after every test — ensures the Redis client is closed."""
-    yield
-    await close_redis_client()

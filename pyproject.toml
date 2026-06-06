@@ -11,7 +11,7 @@ keywords = ["rate-limiter", "api", "fastapi", "redis", "token-bucket", "sliding-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
-addopts = "-v --tb=short --cov=app --cov-report=term-missing --cov-report=html"
+addopts = "-v --tb=short"
 
 [tool.ruff]
 target-version = "py311"

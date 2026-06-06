@@ -7,14 +7,12 @@ on:
     branches: [main]
 
 jobs:
-
-  # ─────────────────────────── LINT & TYPE CHECK ────────────────────────────
+  # ─────────────── LINT ───────────────
   lint:
     name: 🔍 Lint & Type Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -29,7 +27,7 @@ jobs:
       - name: Run MyPy type checker
         run: mypy app/ --ignore-missing-imports
 
-  # ────────────────────────────── UNIT TESTS ────────────────────────────────
+  # ─────────────── UNIT TESTS ───────────────
   unit-tests:
     name: 🧪 Unit Tests
     runs-on: ubuntu-latest
@@ -48,7 +46,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -58,18 +55,12 @@ jobs:
         run: pip install -r requirements-dev.txt
 
       - name: Run unit tests
-        run: pytest tests/unit -v --cov=app --cov-report=xml --cov-report=term-missing
+        run: pytest tests/unit -v --tb=short --cov=app --cov-report=term-missing
         env:
           REDIS_HOST: localhost
-          REDIS_PORT: 6379
+          REDIS_PORT: "6379"
 
-      - name: Upload coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: unit-coverage
-          path: htmlcov/
-
-  # ─────────────────────────── INTEGRATION TESTS ───────────────────────────
+  # ─────────────── INTEGRATION TESTS ───────────────
   integration-tests:
     name: 🔗 Integration Tests
     runs-on: ubuntu-latest
@@ -88,7 +79,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -101,12 +91,12 @@ jobs:
         run: pytest tests/integration -v --tb=short
         env:
           REDIS_HOST: localhost
-          REDIS_PORT: 6379
+          REDIS_PORT: "6379"
           RATE_LIMIT_ALGORITHM: token_bucket
           RATE_LIMIT_MAX_REQUESTS: "10"
           RATE_LIMIT_WINDOW_SECONDS: "60"
 
-  # ──────────────────────── DOCKER BUILD & PUSH ────────────────────────────
+  # ─────────────── DOCKER BUILD ───────────────
   docker:
     name: 🐳 Docker Build & Push
     runs-on: ubuntu-latest
