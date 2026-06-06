@@ -9,7 +9,6 @@ from app.algorithms.leaky_bucket import LeakyBucketLimiter
 
 
 class TestLeakyBucketLimiter:
-
     @pytest.fixture
     def limiter(self):
         return LeakyBucketLimiter(max_requests=3, window_seconds=60)

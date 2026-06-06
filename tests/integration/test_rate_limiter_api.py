@@ -15,7 +15,6 @@ from app.main import app
 
 
 class TestRateLimiterAPI:
-
     @pytest.fixture
     async def client(self):
         transport = ASGITransport(app=app)

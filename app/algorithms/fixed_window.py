@@ -18,7 +18,6 @@ from app.utils.redis_client import get_redis_client
 
 
 class FixedWindowLimiter(BaseRateLimiter):
-
     @property
     def algorithm_name(self) -> str:
         return "fixed_window"

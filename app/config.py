@@ -5,6 +5,7 @@ from pydantic_settings import BaseSettings
 
 class AlgorithmType(StrEnum):
     """Supported rate limiting algorithms."""
+
     FIXED_WINDOW = "fixed_window"
     SLIDING_WINDOW_LOG = "sliding_window_log"
     TOKEN_BUCKET = "token_bucket"

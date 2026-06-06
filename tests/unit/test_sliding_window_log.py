@@ -9,7 +9,6 @@ from app.algorithms.sliding_window_log import SlidingWindowLogLimiter
 
 
 class TestSlidingWindowLogLimiter:
-
     @pytest.fixture
     def limiter(self):
         return SlidingWindowLogLimiter(max_requests=3, window_seconds=60)

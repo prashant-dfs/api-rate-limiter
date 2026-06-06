@@ -19,7 +19,6 @@ from app.config import AlgorithmType, settings
 
 
 class RateLimiterMiddleware(BaseHTTPMiddleware):
-
     def __init__(
         self,
         app,
@@ -56,9 +55,7 @@ class RateLimiterMiddleware(BaseHTTPMiddleware):
             return forwarded.split(",")[0].strip()
         return request.client.host if request.client else "unknown"
 
-    async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint
-    ) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         # Skip rate limiting for excluded paths
         if request.url.path in self.exclude_paths:
             return await call_next(request)

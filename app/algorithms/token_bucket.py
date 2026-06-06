@@ -17,7 +17,6 @@ from app.utils.redis_client import get_redis_client
 
 
 class TokenBucketLimiter(BaseRateLimiter):
-
     def __init__(self, max_requests: int = 10, window_seconds: int = 60):
         super().__init__(max_requests, window_seconds)
         self.capacity = max_requests

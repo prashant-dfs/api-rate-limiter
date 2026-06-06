@@ -8,7 +8,6 @@ from app.algorithms.fixed_window import FixedWindowLimiter
 
 
 class TestFixedWindowLimiter:
-
     @pytest.fixture
     def limiter(self):
         return FixedWindowLimiter(max_requests=3, window_seconds=60)

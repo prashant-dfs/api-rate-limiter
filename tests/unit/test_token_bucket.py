@@ -9,7 +9,6 @@ from app.algorithms.token_bucket import TokenBucketLimiter
 
 
 class TestTokenBucketLimiter:
-
     @pytest.fixture
     def limiter(self):
         return TokenBucketLimiter(max_requests=5, window_seconds=60)

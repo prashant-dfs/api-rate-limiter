@@ -62,11 +62,11 @@ async def root():
         "version": settings.app_version,
         "documentation": "/docs",
         "endpoints": {
-            "health":         "GET /api/health",
-            "public":         "GET /api/public",
-            "limited":        "GET /api/limited",
+            "health": "GET /api/health",
+            "public": "GET /api/public",
+            "limited": "GET /api/limited",
             "test_algorithm": "GET /api/test/{algorithm}",
-            "algorithms":     "GET /api/algorithms",
+            "algorithms": "GET /api/algorithms",
         },
     }
 
