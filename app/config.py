@@ -1,8 +1,10 @@
-from enum import Enum
+from enum import StrEnum
+
 from pydantic_settings import BaseSettings
 
 
-class AlgorithmType(str, Enum):
+class AlgorithmType(StrEnum):
+    """Supported rate limiting algorithms."""
     FIXED_WINDOW = "fixed_window"
     SLIDING_WINDOW_LOG = "sliding_window_log"
     TOKEN_BUCKET = "token_bucket"
@@ -28,7 +30,9 @@ class Settings(BaseSettings):
     rate_limit_window_seconds: int = 60
     rate_limit_max_requests: int = 10
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
 
 
 settings = Settings()
